@@ -9,7 +9,6 @@ if (!isset($_SESSION['logado'])) :
     header('Location: index.php');
 endif;
 
-
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\User;
@@ -42,7 +41,13 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'], $_
 </head>
 
 <body>
-    <?php require_once "includes/header.php" ?>
+    <header>
+        <div class="container">
+            <a href="index.php" class="logo">
+                <img src="assets/images/ho.svg" alt="" />
+            </a>
+        </div>
+    </header>
     <section class="page-cadastro-usuario paddingBottom50">
         <div class="container">
             <div>

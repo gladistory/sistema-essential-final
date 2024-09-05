@@ -18,7 +18,7 @@ class User
     public function Cadastrar()
     {
         $obsDatabase = new Database('usuarios');
-        $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
+        $this->senha = sha1($this->senha);
         $this->id = $obsDatabase->insert([
             'nome' => $this->nome,
             'email' => $this->email,
@@ -44,7 +44,7 @@ class User
         $user = $result->fetch(PDO::FETCH_ASSOC);
 
         // Verificar se o usuário foi encontrado e se a senha é válida
-        if ($user && password_verify($senha, $user['senha'])) {
+        if ($user && sha1($senha, $user['senha'])) {
             // Login bem-sucedido
             session_start();
             $_SESSION['logado'] = true;
