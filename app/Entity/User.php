@@ -12,7 +12,7 @@ class User
     public $nome;
     public $email;
     public $cpf;
-    public $telefone;
+    public $nascimento;
     public $senha;
 
     public function Cadastrar()
@@ -23,7 +23,7 @@ class User
             'nome' => $this->nome,
             'email' => $this->email,
             'cpf' => $this->cpf,
-            'telefone' => $this->telefone,
+            'nascimento' => $this->nascimento,
             'senha' => $this->senha
         ]);
         return true;

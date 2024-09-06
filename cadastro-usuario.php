@@ -13,13 +13,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\User;
 
-if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'], $_POST['senha'])) {
+if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], $_POST['senha'])) {
     $obAdmin = new User();
 
     $obAdmin->nome = $_POST['nome'];
     $obAdmin->email = $_POST['email'];
     $obAdmin->cpf = $_POST['cpf'];
-    $obAdmin->telefone = $_POST['telefone'];
+    $obAdmin->nascimento = $_POST['nascimento'];
     $obAdmin->senha = $_POST['senha'];
     $obAdmin->Cadastrar();
     header('location: index.php');
@@ -72,8 +72,8 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'], $_
                             <input type="text" class="cpf-input" name="cpf">
                         </div>
                         <div>
-                            <label class="input-label">Telefone</label>
-                            <input type="tel" class="telefone-input" name="telefone">
+                            <label class="input-label">Nascimento</label>
+                            <input type="date" class="telefone-input" name="nascimento">
                         </div>
                         <div>
                             <label class="input-label">Senha</label>
