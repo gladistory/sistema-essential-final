@@ -57,4 +57,21 @@ class User
             return false;
         }
     }
+
+    // Método que pega as vagas do banco de dados 
+    public static function getUsers($where = null, $order = null, $limit = null)
+    {
+        (new Database('usuarios'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    // Pega a vaga pelo ID
+    public static function getUser($id)
+    {
+        return (new Database('usuarios'))->select('id = ' . $id)->fetchObject(self::class);
+    }
+
+    public function excluir()
+    {
+        return (new Database('usuarios'))->delete('id = ' . $this->id);
+    }
 }

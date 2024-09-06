@@ -28,6 +28,14 @@ foreach ($clientes as $cliente) {
                             <td>' . $cliente->cpf . '</td>
                             <td>' . $cliente->email . '</td>
                             <td>' . $cliente->telefone . '</td>
+                             <td>
+                            <a href="editar.php?id=' . $vaga->id . '">
+                            <button type="button" class="btn btn-primary">Editar</button>
+                        </td>
+                        <td>
+                            <a href="excluir.php?id=' . $vaga->id . '">
+                            <button type="button" class="btn btn-danger">Excluir</button>
+                        </td>
                     </tr>';
 }
 
@@ -44,6 +52,8 @@ foreach ($clientes as $cliente) {
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <link rel="stylesheet" href="https://use.typekit.net/tvf0cut.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
@@ -66,6 +76,8 @@ foreach ($clientes as $cliente) {
                             <th>CPF</th>
                             <th>E-mail</th>
                             <th>Telefone</th>
+                            <th>Editar</th>
+                            <th>Deletar</th>
                         </tr>
                     </thead>
                     <tbody>

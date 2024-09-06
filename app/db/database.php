@@ -75,4 +75,18 @@ class Database
             die('Erro ao executar a query: ' . $e->getMessage());
         }
     }
+
+    public function update($where, $values)
+    {
+        $fields = array_keys($values);
+        $query = 'UPDATE ' . $this->table . ' SET ' . implode('=?,', $fields) . '=? WHERE ' . $where;
+        $this->execute($query, array_values($values));
+    }
+
+    public function delete($where)
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $where;
+        $this->execute($query);
+        return true;
+    }
 }

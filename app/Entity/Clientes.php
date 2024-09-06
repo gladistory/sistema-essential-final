@@ -30,4 +30,21 @@ class Clientes
     {
         return (new Database('clientes'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
     }
+
+    // Método que pega as vagas do banco de dados 
+    public static function getUsers($where = null, $order = null, $limit = null)
+    {
+        (new Database('clientes'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    // Pega a vaga pelo ID
+    public static function getUser($id)
+    {
+        return (new Database('clientes'))->select('id_cliente = ' . $id)->fetchObject(self::class);
+    }
+
+    public function excluir()
+    {
+        return (new Database('clientes'))->delete('id_cliente = ' . $this->id_cliente);
+    }
 }
