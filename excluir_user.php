@@ -11,27 +11,27 @@ endif;
 require __DIR__ . '/vendor/autoload.php';
 
 use \App\Entity\Clientes;
-
+use App\Entity\User;
 
 // Validando id do cliente
-if (!isset($_GET['id_cliente']) or !is_numeric($_GET['id_cliente'])) {
+if (!isset($_GET['id']) or !is_numeric($_GET['id'])) {
     header('location: index.php?status=error');
     exit;
 }
 
-$obClienteId = Clientes::getCliente($_GET['id_cliente']);
+$obUserId = User::getUser($_GET['id']);
 
 //Validar se a vaga existe no banco
 
-if (!$obClienteId instanceof Clientes) {
-    header('location: clientes.php?status=error');
+if (!$obUserId instanceof User) {
+    header('location: usuarios.php?status=error');
     exit;
 }
 
 // Validação do POST
 if (isset($_POST['excluir'])) {
-    $obClienteId->excluir();
-    header('location: clientes.php?status=succes');
+    $obUserId->excluir();
+    header('location: usuarios.php?status=succes');
     exit;
 }
 ?>
@@ -58,7 +58,7 @@ if (isset($_POST['excluir'])) {
                 <!-- Button trigger modal -->
                 <div class="card text-center container-sm">
                     <div class="card-body">
-                        <h3 class="card-text">Clique para remover o seu cliente.</h3>
+                        <h5 class="card-text">Clique para excluir o usuário.</h5>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Exluir
@@ -72,7 +72,7 @@ if (isset($_POST['excluir'])) {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Deseja realmente
+                                <h1 class="modal-title fs-5 text" id="exampleModalLabel">Deseja realmente
                                     excluir?
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"

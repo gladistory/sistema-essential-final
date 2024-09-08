@@ -58,10 +58,9 @@ class User
         }
     }
 
-    // Método que pega as vagas do banco de dados 
     public static function getUsers($where = null, $order = null, $limit = null)
     {
-        (new Database('usuarios'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+        return (new Database('usuarios'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
     // Pega a vaga pelo ID

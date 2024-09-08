@@ -12,6 +12,7 @@
             <img src="assets/images/arrow-down.svg" alt="" />
             <div class="menu-drop">
                 <a href="clientes.php">Gerenciar clientes</a>
+                <a href="usuarios.php">Gerenciar Usuários</a>
                 <a href="produtos.php">Gerenciar produtos</a>
                 <a href="cadastro-cliente.php">Cadastrar cliente</a>
                 <a href="cadastro-usuario.php">Cadastrar usuário</a>
