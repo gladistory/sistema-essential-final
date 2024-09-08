@@ -95,10 +95,6 @@ endif;
                     </table>
                 </div>
                 <div class="maxW340">
-                    <label class="input-label">Observação</label>
-                    <input type="text" class="input" name="observacao">
-                </div>
-                <div class="maxW340">
                     <button type="submit" class="button-default">Salvar</button>
                 </div>
             </div>

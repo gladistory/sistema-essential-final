@@ -36,10 +36,12 @@
                         <div>
                             <label class="input-label-login">E-mail</label>
                             <input type="text" class="email-input" id="data-login" name="email">
+                            <a class="login-text" href="cadastro-usuario.php">Ainda não sou cadastrado.</a>
                         </div>
                         <div>
                             <label class="input-label-password">Senha</label>
                             <input type="password" class="password-input" id="data-password" name="senha">
+                            <a class="login-text" href="#">Recuperar senha.</a>
                         </div>
                     </div>
                     <button type="submit" class="button-default" name="btn-continuar">Continuar</button>

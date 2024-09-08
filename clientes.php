@@ -9,11 +9,11 @@ if (!isset($_SESSION['logado'])) :
     header('Location: index.php');
 endif;
 
-
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Clientes;
 
+// Mostrar clientes
 $obCliente = new Clientes();
 $clientes = $obCliente->getClientes();
 
@@ -29,16 +29,15 @@ foreach ($clientes as $cliente) {
                             <td>' . $cliente->email . '</td>
                             <td>' . $cliente->telefone . '</td>
                              <td>
-                            <a href="editar.php?id=' . $vaga->id . '">
+                            <a href="editar_cliente.php?id_cliente=' . $cliente->id_cliente . '">
                             <button type="button" class="btn btn-primary">Editar</button>
                         </td>
                         <td>
-                            <a href="excluir.php?id=' . $vaga->id . '">
-                            <button type="button" class="btn btn-danger">Excluir</button>
+                        <a href="excluir_cliente.php?id_cliente=' . $cliente->id_cliente . '">
+                        <button type="button" class="btn btn-danger">Excluir</button>
                         </td>
                     </tr>';
-}
-
+};
 
 ?>
 
@@ -87,6 +86,9 @@ foreach ($clientes as $cliente) {
             </div>
         </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
