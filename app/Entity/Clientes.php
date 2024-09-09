@@ -25,6 +25,18 @@ class Clientes
         return true;
     }
 
+    // Método para editar Cliente
+
+    public function Editar()
+    {
+        return (new Database('clientes'))->update('id_cliente = ' . $this->id_cliente, [
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'cpf' => $this->cpf,
+            'telefone' => $this->telefone
+        ]);
+    }
+
     // Método que pega as vagas do banco de dados 
     public static function getClientes($where = null, $order = null, $limit = null)
     {

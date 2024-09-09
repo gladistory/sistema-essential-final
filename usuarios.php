@@ -32,7 +32,7 @@ foreach ($users as $user) {
                             <td>' . $user->email . '</td>
                             <td>' . $user->nascimento . '</td>
                              <td>
-                            <a href="editar_user.php?id =' . $user->id . '">
+                            <a href="editar_user.php?id=' . $user->id . '">
                             <button type="button" class="btn btn-primary">Editar</button>
                         </td>
                         <td>

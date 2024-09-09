@@ -12,7 +12,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], 
     $obAdmin->nascimento = $_POST['nascimento'];
     $obAdmin->senha = $_POST['senha'];
     $obAdmin->Cadastrar();
-    header('location: index.php');
+    header('location: usuarios.php');
 };
 
 ?>

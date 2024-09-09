@@ -29,6 +29,16 @@ class User
         return true;
     }
 
+    public function Editar()
+    {
+        return (new Database('usuarios'))->update('id = ' . $this->id, [
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'cpf' => $this->cpf,
+            'nascimento' => $this->nascimento
+        ]);
+    }
+
     public function Login($email = null, $senha = null)
     {
         $obsDatabase = new Database('usuarios');
@@ -57,6 +67,8 @@ class User
             return false;
         }
     }
+
+    public function novaSenha() {}
 
     public static function getUsers($where = null, $order = null, $limit = null)
     {

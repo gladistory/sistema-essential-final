@@ -18,6 +18,7 @@
                 <a href="cadastro-usuario.php">Cadastrar usuário</a>
                 <a href="cadastro-produto.php">Cadastrar produto</a>
                 <a href="novo-pedido.php">Novo pedido</a>
+                <a href="alterar-senha.php">Alterar Senha</a>
                 <a href="logout.php">Sair da conta</a>
             </div>
         </div>
