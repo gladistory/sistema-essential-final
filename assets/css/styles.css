@@ -276,7 +276,7 @@ table thead tr {
 }
 
 table thead tr th {
-  padding: 0 0 0 23px;
+  padding: 0 0 0 50px;
   text-align: left;
   font-size: 18px;
   font-weight: 500;
@@ -297,6 +297,7 @@ table td .img-produto {
   border: 1px solid #666666;
   width: 70px;
   height: 70px;
+  object-fit: cover;
 }
 
 table tfoot tr td {

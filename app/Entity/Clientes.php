@@ -37,7 +37,7 @@ class Clientes
         ]);
     }
 
-    // Método que pega as vagas do banco de dados 
+    // Método que pega os clientes do banco de dados 
     public static function getClientes($where = null, $order = null, $limit = null)
     {
         return (new Database('clientes'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);

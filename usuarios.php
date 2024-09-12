@@ -19,8 +19,6 @@ define('TITLE', 'Excluir Usuário');
 $obUser = new User();
 $users = $obUser->getUsers();
 
-//$_SESSION['num_clientes'] = count($clientes);
-
 $resultados = '';
 
 foreach ($users as $user) {

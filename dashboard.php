@@ -11,6 +11,13 @@ endif;
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Clientes;
+use App\Entity\Produtos;
+
+$obProdutos = new Produtos();
+
+$produtos = $obProdutos->getProdutos();
+
+$_SESSION['num_produtos'] = count($produtos);
 
 $obCliente = new Clientes();
 $clientes = $obCliente->getClientes();
@@ -50,7 +57,7 @@ $_SESSION['num_clientes'] = count($clientes);
                     <div class="d-flex justify-content-between">
                         <div>
                             <h2>Produtos</h2>
-                            <span>444</span>
+                            <span><?php echo $_SESSION['num_produtos'] ?></span>
                         </div>
                         <img src="assets/images/icon-product.svg" style="max-width: 76px;" alt="">
                     </div>

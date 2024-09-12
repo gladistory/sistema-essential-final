@@ -21,8 +21,6 @@ if (!isset($_GET['id_cliente']) or !is_numeric($_GET['id_cliente'])) {
 $obClienteId = Clientes::getCliente($_GET['id_cliente']);
 
 
-
-
 //Validar se a vaga existe no banco
 
 if (!$obClienteId instanceof Clientes) {
@@ -61,7 +59,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'])) {
             <div>
                 <a href="clientes.php" class="link-voltar">
                     <img src="assets/images/arrow.svg" alt="">
-                    <span>Cadastro de cliente</span>
+                    <span>Editar cliente</span>
                 </a>
             </div>
             <div class="container-small">

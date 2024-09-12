@@ -10,29 +10,30 @@ endif;
 
 require __DIR__ . '/vendor/autoload.php';
 
-use App\Entity\User;
+use App\Entity\Produtos;
 
-// Validando id do cliente
-if (!isset($_GET['id']) or !is_numeric($_GET['id'])) {
-    header('location: index.php?status=error');
+// Validando id do produto
+if (!isset($_GET['id_produto']) or !is_numeric($_GET['id_produto'])) {
+    header('location: produtos.php?status=error');
     exit;
 }
 
-$obUserId = User::getUser($_GET['id']);
+$obProdutoID = Produtos::getProduto($_GET['id_produto']);
 
 //Validar se a vaga existe no banco
 
-if (!$obUserId instanceof User) {
-    header('location: usuarios.php?status=error');
+if (!$obProdutoID instanceof Produtos) {
+    header('location: produtos.php?status=error');
     exit;
 }
 
 // Validação do POST
 if (isset($_POST['excluir'])) {
-    $obUserId->excluir();
-    header('location: usuarios.php?status=succes');
+    $obProdutoID->excluir();
+    header('location: produtos.php?status=succes');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +42,7 @@ if (isset($_POST['excluir'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de cliente</title>
+    <title>Excluir Produto</title>
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <link rel="stylesheet" href="https://use.typekit.net/tvf0cut.css">
@@ -57,7 +58,7 @@ if (isset($_POST['excluir'])) {
                 <!-- Button trigger modal -->
                 <div class="card text-center container-sm">
                     <div class="card-body">
-                        <h5 class="card-text">Clique para excluir o usuário.</h5>
+                        <h5 class="card-text">Clique para excluir o produto.</h5>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Exluir

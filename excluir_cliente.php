@@ -15,7 +15,7 @@ use \App\Entity\Clientes;
 
 // Validando id do cliente
 if (!isset($_GET['id_cliente']) or !is_numeric($_GET['id_cliente'])) {
-    header('location: index.php?status=error');
+    header('location: clientes.php?status=error');
     exit;
 }
 

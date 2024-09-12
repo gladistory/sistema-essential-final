@@ -12,21 +12,30 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Produtos;
 
+// Validando id do produto
+if (!isset($_GET['id_produto']) or !is_numeric($_GET['id_produto'])) {
+    header('location: produtos.php?status=error');
+    exit;
+}
+
+$obProdutoID = Produtos::getProduto($_GET['id_produto']);
+
+//Validar se a vaga existe no banco
+
+if (!$obProdutoID instanceof Produtos) {
+    header('location: produtos.php?status=error');
+    exit;
+}
+
 if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descricao'])) {
     if (isset($_FILES["imagem"]) && !empty($_FILES["imagem"])) {
-
-        $imagem = "./product_img/" . $_FILES["imagem"]["name"];
-        move_uploaded_file($_FILES["imagem"]["tmp_name"], $imagem);
-        $obProdutos = new Produtos();
-
-        $obProdutos->nome = $_POST["nome"];
-        $obProdutos->quantidade = $_POST["quantidade"];
-        $obProdutos->valor = $_POST["valor"];
-        $obProdutos->descricao = $_POST["descricao"];
-        $obProdutos->imagem = $imagem;
-        $obProdutos->Cadastrar();
+        $obProdutoID->nome = $_POST["nome"];
+        $obProdutoID->quantidade = $_POST["quantidade"];
+        $obProdutoID->valor = $_POST["valor"];
+        $obProdutoID->descricao = $_POST["descricao"];
+        $obProdutoID->Editar();
         header('location: produtos.php');
-    };
+    }
 }
 
 ?>
@@ -49,7 +58,7 @@ if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descric
     <section class="page-cadastro-produto paddingBottom50">
         <div class="container">
             <div>
-                <a href="/cadastro-cliente.php" class="link-voltar">
+                <a href="produtos.php" class="link-voltar">
                     <img src="assets/images/arrow.svg" alt="">
                     <span>Cadastro de produto</span>
                 </a>
@@ -59,20 +68,22 @@ if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descric
                     <div class="bloco-inputs">
                         <div>
                             <label class="input-label">Nome</label>
-                            <input type="text" class="nome-input" name="nome">
+                            <input type="text" class="nome-input" name="nome" value='<?php echo $obProdutoID->nome ?>'>
                         </div>
                         <div>
                             <label class="input-label">Descrição</label>
-                            <textarea class="textarea" name="descricao"></textarea>
+                            <textarea class="textarea" name="descricao"><?php echo $obProdutoID->descricao ?></textarea>
                         </div>
                         <div class="flex-2">
                             <div>
                                 <label class="input-label">Quantidade</label>
-                                <input type="number" class="sku-input" name="quantidade">
+                                <input type="number" class="sku-input" name="quantidade"
+                                    value='<?php echo $obProdutoID->quantidade ?>'>
                             </div>
                             <div>
                                 <label class="input-label">Valor</label>
-                                <input type="text" class="valor-input" name="valor">
+                                <input type="text" class="valor-input" name="valor"
+                                    value='<?php echo $obProdutoID->valor ?>'>
                             </div>
                         </div>
                         <div>
@@ -80,7 +91,7 @@ if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descric
                             <input id="bt-arquivo" type="file" accept="image/*" name="imagem">
                         </div>
                     </div>
-                    <button type="submit" class="button-default">Salvar novo produto</button>
+                    <button type="submit" class="button-default">Salvar Alterações</button>
                 </form>
             </div>
         </div>

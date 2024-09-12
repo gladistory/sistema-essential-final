@@ -1,16 +1,16 @@
 .page-gerenciamento-produto table tr td:nth-child(3) {
-    width: 205px;
+  width: 205px;
 }
 
 .page-gerenciamento-produto table tr td:nth-child(4) {
-    width: 110px;
+  width: 110px;
 }
 
 .descr {
-    max-width: 320px;
-    display: block;
+  max-width: 150px;
+  display: block;
 }
 
 .page-gerenciamento-produto table tr td:last-child {
-    width: 140px;
+  width: 140px;
 }
