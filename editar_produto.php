@@ -2,8 +2,7 @@
 // Iniciar sessão
 session_start();
 
-//Verificação
-
+// Verificação
 if (!isset($_SESSION['logado'])) :
     header('Location: index.php');
 endif;
@@ -13,6 +12,7 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Entity\Produtos;
 
 // Validando id do produto
+// Validando id do produto
 if (!isset($_GET['id_produto']) or !is_numeric($_GET['id_produto'])) {
     header('location: produtos.php?status=error');
     exit;
@@ -20,25 +20,37 @@ if (!isset($_GET['id_produto']) or !is_numeric($_GET['id_produto'])) {
 
 $obProdutoID = Produtos::getProduto($_GET['id_produto']);
 
-//Validar se a vaga existe no banco
-
+// Validar se o produto existe no banco
 if (!$obProdutoID instanceof Produtos) {
     header('location: produtos.php?status=error');
     exit;
 }
 
 if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descricao'])) {
-    if (isset($_FILES["imagem"]) && !empty($_FILES["imagem"])) {
-        $obProdutoID->nome = $_POST["nome"];
-        $obProdutoID->quantidade = $_POST["quantidade"];
-        $obProdutoID->valor = $_POST["valor"];
-        $obProdutoID->descricao = $_POST["descricao"];
-        $obProdutoID->Editar();
-        header('location: produtos.php');
+
+    // Verifica se uma nova imagem foi enviada
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+        // Caminho da nova imagem
+        $imagem = "./product_img/" . $_FILES["imagem"]["name"];
+        move_uploaded_file($_FILES["imagem"]["tmp_name"], $imagem);
+    } else {
+        // Caso não tenha sido enviada, mantém a imagem existente do banco de dados
+        $imagem = $obProdutoID->imagem;
     }
+
+    // Atualizando o produto
+    $obProdutoID->nome = $_POST["nome"];
+    $obProdutoID->quantidade = $_POST["quantidade"];
+    $obProdutoID->valor = $_POST["valor"];
+    $obProdutoID->descricao = $_POST["descricao"];
+    $obProdutoID->imagem = $imagem; // Mantém ou atualiza a imagem
+
+    $obProdutoID->Editar();
+    header('location: produtos.php');
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
