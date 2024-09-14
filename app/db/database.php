@@ -17,6 +17,8 @@ class Database
     const PASS = '';
 
     // nome da tabela a ser manipulada
+    public $busca;
+
     private $table;
 
     public $connection;
@@ -88,5 +90,20 @@ class Database
         $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $where;
         $this->execute($query);
         return true;
+    }
+
+    public function buscar($where = null, $order = null, $limit = null)
+    {
+        $where = strlen($where) ? 'WHERE ' . $where : '';
+        $order = strlen($order) ? 'ORDER BY ' . $order : '';
+        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
+        // Monta a Query
+        $query = 'SELECT * FROM ' . $this->table . ' ' . $where . ' like %' . $this->busca . '%' . $order . ' ' . $limit;
+        try {
+            $result = $this->execute($query);
+            return $result;
+        } catch (PDOException $e) {
+            die('Erro ao executar a query: ' . $e->getMessage());
+        }
     }
 }

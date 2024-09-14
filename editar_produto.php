@@ -34,7 +34,7 @@ if (isset($_POST['nome'], $_POST['quantidade'], $_POST['valor'], $_POST['descric
         $imagem = "./product_img/" . $_FILES["imagem"]["name"];
         move_uploaded_file($_FILES["imagem"]["tmp_name"], $imagem);
     } else {
-        // Caso não tenha sido enviada, mantém a imagem existente do banco de dados
+        // Caso não tenha sido enviada, mantém a imagem do banco de dados
         $imagem = $obProdutoID->imagem;
     }
 
