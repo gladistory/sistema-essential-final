@@ -12,6 +12,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Clientes;
 use App\Entity\Produtos;
+use App\Entity\novoPedido;
 
 $obProdutos = new Produtos();
 
@@ -23,6 +24,12 @@ $obCliente = new Clientes();
 $clientes = $obCliente->getClientes();
 
 $_SESSION['num_clientes'] = count($clientes);
+
+$obPedidos = new novoPedido();
+
+$pedidos = $obPedidos->getPedidos();
+
+$_SESSION['num_pedidos'] = count($pedidos);
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +74,7 @@ $_SESSION['num_clientes'] = count($clientes);
                     <div class="d-flex justify-content-between">
                         <div>
                             <h2>Pedidos</h2>
-                            <span>444</span>
+                            <span><?php echo $_SESSION['num_pedidos'] ?></span>
                         </div>
                         <img src="assets/images/icon-pedido.svg" alt="">
                     </div>

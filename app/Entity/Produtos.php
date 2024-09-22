@@ -40,7 +40,7 @@ class Produtos
         ]);
     }
 
-    // Método que pega os clientes do banco de dados 
+    // Método que pega os produtos do banco de dados 
     public static function getProdutos($where = null, $order = null, $limit = null)
     {
         return (new Database('produtos'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);

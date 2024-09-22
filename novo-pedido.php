@@ -10,9 +10,6 @@ session_start();
 if (!isset($_SESSION['logado'])) :
     header('Location: index.php');
 endif;
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +59,9 @@ endif;
                         </thead>
                         <tbody>
                             <tr id="campo">
-                                <td><input id="produto" type="text" class="input buscarProduto" name="produto[]"
-                                        placeholder="Digite o nome do produto"></td>
+                                <td><input type="text" class="input buscarProduto" name="produto[]"
+                                        placeholder="Digite o nome do produto"><input type="hidden" name="produto_id[]">
+                                </td>
                                 <td><input id="quantidade" type="number" class="input quantidadeProduto"
                                         name="quantidade[]" value="0">
                                 </td>
@@ -86,8 +84,8 @@ endif;
                                         <div class="blc-subtotal d-flex">
                                             <div class="d-flex align-items-center">
                                                 <span>Total</span>
-                                                <input name="totalGeral" type="text" class="input" id="totalGeral"
-                                                    disabled value="0,00" />
+                                                <input name="totalGeral[]" type="text" class="input" id="totalGeral"
+                                                    readonly value="0,00" />
                                             </div>
                                         </div>
                                     </div>
@@ -132,45 +130,52 @@ endif;
     $(document).ready(function() {
         // Função para adicionar autocomplete a todos os campos de produto
         function aplicarAutocompleteProduto() {
-            $(".buscarProduto").autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: "search_produto.php",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            nome: request.term
-                        },
-                        success: function(data) {
-                            response(data);
-                        }
-                    });
-                },
-                minLength: 1,
-                select: function(event, ui) {
-                    var produtoId = ui.item.id;
-                    var $linha = $(this).closest('tr');
+            $(".buscarProduto").each(function() {
+                $(this).autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "search_produto.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                nome: request.term
+                            },
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function(event, ui) {
+                        var produtoId = ui.item.id;
+                        var $linha = $(this).closest('tr');
+                        $linha.find('input[name="produto_id[]"]').val(
+                            produtoId); // Atribui o ID ao campo hidden
 
-                    $.ajax({
-                        url: "get_produto_detalhes.php",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            id_produto: produtoId
-                        },
-                        success: function(data) {
-                            // Definindo o valor unitário do produto
-                            $linha.find(".valorUnitario").val(data.valor.replace('.',
-                                ','));
-                            calcularTotalLinha($linha); // Recalcular o total da linha
-                            calcularTotalGeral(); // Atualizar o total geral
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Erro ao buscar detalhes do produto: " +
-                                error);
-                        }
-                    });
-                }
+                        // Faz a requisição AJAX para buscar detalhes do produto
+                        $.ajax({
+                            url: "get_produto_detalhes.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                id_produto: produtoId
+                            },
+                            success: function(data) {
+                                // Definindo o valor unitário do produto
+                                $linha.find(".valorUnitario").val(data.valor
+                                    .replace('.', ','));
+                                calcularTotalLinha(
+                                    $linha); // Recalcular o total da linha
+                                calcularTotalGeral(); // Atualizar o total geral
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(
+                                    "Erro ao buscar detalhes do produto: " +
+                                    error);
+                            }
+                        });
+                    }
+                });
             });
         }
 
@@ -210,30 +215,27 @@ endif;
             calcularTotalGeral(); // Atualizar o total geral
         });
 
-        var controleCampo = 1;
-
+        // Função para adicionar uma nova linha ao clicar no botão "Adicionar produto"
         function adicionarLinha() {
-            controleCampo++; // Incrementa o controle para gerar um novo ID único
-
             document.getElementById('minhaTabela').insertAdjacentHTML("beforeend",
-                '<tr id="campo' + controleCampo + '">' +
-                '<td><input id="produto" type="text" class="input buscarProduto" name="produto[]" placeholder="Digite o nome do produto"></td>' +
-                '<td><input id="quantidade" type="number" class="input quantidadeProduto"name="quantidade[]" value="0"></td>' +
+                '<tr>' +
+                '<td><input type="text" class="input buscarProduto" name="produto[]" placeholder="Digite o nome do produto"><input type="hidden" name="produto_id[]"></td>' +
+                '<td><input type="number" class="input quantidadeProduto" name="quantidade[]" value="0"></td>' +
                 '<td><input type="text" class="input valorUnitario" name="valorUnitario" readonly></td>' +
-                '<td><input id="valorParcial" type="text" class="input valorParcial"name="valorParcial[]" readonly></td>' +
+                '<td><input type="text" class="input valorParcial" name="valorParcial[]" readonly></td>' +
                 '<td><img class="deleteLinha" src="assets/images/remover.svg" alt="" /></td>' +
                 '</tr>'
             );
             aplicarAutocompleteProduto(); // Aplicar autocomplete na nova linha
         }
 
-        // Função para adicionar uma nova linha ao clicar no botão "Adicionar produto"
+        // Evento para adicionar nova linha
         $('.bt-add-produto').on('click', function(e) {
             e.preventDefault();
             adicionarLinha();
         });
 
-        // Função para remover linha ao clicar no ícone de remover
+        // Evento para remover uma linha
         $(document).on('click', '.deleteLinha', function() {
             $(this).closest('tr').remove(); // Remove a linha
             calcularTotalGeral(); // Atualiza o total geral
