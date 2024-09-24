@@ -106,4 +106,26 @@ class Database
             die('Erro ao executar a query: ' . $e->getMessage());
         }
     }
+
+    public function selectOne($where = '', $params = [])
+    {
+        // Verifica se o where é uma string e monta a condição corretamente
+        $whereClause = !empty($where) ? 'WHERE ' . $where : '';
+
+        // Monta a Query SQL
+        $query = 'SELECT * FROM ' . $this->table . ' ' . $whereClause . ' LIMIT 1'; // Limite de 1 para trazer um único registro
+
+        try {
+            // Prepara a query no PDO
+            $stmt = $this->connection->prepare($query);
+
+            // Executa a query passando o array de parâmetros
+            $stmt->execute($params);
+
+            // Retorna apenas o primeiro resultado encontrado
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die('Erro ao executar a query: ' . $e->getMessage());
+        }
+    }
 }

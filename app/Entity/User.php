@@ -14,11 +14,14 @@ class User
     public $cpf;
     public $nascimento;
     public $senha;
+    public $erro;
 
     public function Cadastrar()
     {
         $obsDatabase = new Database('usuarios');
-        $this->senha = sha1($this->senha);
+
+        $this->senha = password_hash($this->senha, PASSWORD_BCRYPT);
+
         $this->id = $obsDatabase->insert([
             'nome' => $this->nome,
             'email' => $this->email,
@@ -26,6 +29,7 @@ class User
             'nascimento' => $this->nascimento,
             'senha' => $this->senha
         ]);
+
         return true;
     }
 
@@ -35,27 +39,21 @@ class User
             'nome' => $this->nome,
             'email' => $this->email,
             'cpf' => $this->cpf,
-            'nascimento' => $this->nascimento
+            'nascimento' => $this->nascimento,
+            'senha' => $this->senha
+
         ]);
     }
 
-    public function Login($email = null, $senha = null)
+    public function Login($email, $senha)
     {
         $obsDatabase = new Database('usuarios');
 
-        // Verificar se email e senha foram fornecidos
-        if (empty($email) || empty($senha)) {
-            echo "Email e senha precisam ser preenchidos";
-            return false;
-        }
-
-        // Buscar o usuário pelo email
-        $result = $obsDatabase->select("email = '$email'");
-        $user = $result->fetch(PDO::FETCH_ASSOC);
+        // Buscar o usuário pelo email usando o novo método selectOne
+        $user = $obsDatabase->selectOne('email = :email', ['email' => $email]);
 
         // Verificar se o usuário foi encontrado e se a senha é válida
-        if ($user && sha1($senha, $user['senha'])) {
-            // Login bem-sucedido
+        if ($user && password_verify($senha, $user['senha'])) {
             session_start();
             $_SESSION['logado'] = true;
             $_SESSION['id_user'] = $user['id'];
@@ -63,12 +61,9 @@ class User
             header('Location: dashboard.php');
             exit;
         } else {
-            // Usuário ou senha incorretos
-            return false;
+            $this->erro = "<div class='alert alert-danger text-center' role='alert'>Senha ou email incorreto</div>";
         }
     }
-
-    public function novaSenha() {}
 
     public static function getUsers($where = null, $order = null, $limit = null)
     {

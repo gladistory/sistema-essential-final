@@ -44,7 +44,7 @@ if (isset($itens_pedido["envio"])) {
         }
 
         // Redireciona para o dashboard após sucesso
-        header('location: dashboard.php');
+        header('location: pedidos.php');
         exit;
     } else {
         die('Erro ao cadastrar o pedido.');
