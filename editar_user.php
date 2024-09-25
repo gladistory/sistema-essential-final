@@ -54,13 +54,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento']))
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="index.php" class="logo">
-                <img src="assets/images/ho.svg" alt="" />
-            </a>
-        </div>
-    </header>
+    <?php require_once 'includes/header.php' ?>
     <section class="page-cadastro-usuario paddingBottom50">
         <div class="container">
             <div>
@@ -91,9 +85,9 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento']))
                         </div>
                     </div>
                     <button type="submit" class="button-default">Salvar Alterações</button>
-                    <button class="button-default" style="margin-left: 44px; background-color:red"><a href="#"
-                            style="text-decoration: none;color:white">Alterar
-                            Senha</a></button>
+                    <a class="button-default"
+                        style="margin-left: 44px; background-color:red; text-decoration: none;color:white; padding: 12px;"
+                        href="alterar-senha.php">Alterar Senha</a>
                 </form>
             </div>
         </div>

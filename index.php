@@ -64,7 +64,7 @@ if (isset($_POST['btn-continuar'])) {
                         <div>
                             <label class="input-label-password">Senha</label>
                             <input type="password" class="password-input" id="data-password" name="senha">
-                            <a class="login-text" href="#">Recuperar senha.</a>
+                            <a class="login-text" href="recuperar_senha.php">Recuperar senha.</a>
                         </div>
                     </div>
                     <button type="submit" class="button-default" name="btn-continuar">Continuar</button>

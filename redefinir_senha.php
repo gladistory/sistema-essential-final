@@ -1,23 +1,34 @@
 <?php
+require 'vendor/autoload.php';
 
-require __DIR__ . '/vendor/autoload.php';
+use App\DB\Database;
 
-use \App\Entity\User;
-
-$erro = "";
 $sucesso = "";
+$erro = "";
 
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
+    $obsDatabase = new Database('usuarios');
 
-if (isset($_POST['btn-continuar'])) {
-    $email = $_POST['email'];
-    $obUser = new User();
-    $obUser->RecuperarSenha($email);
-    $sucesso = $obUser->sucesso;
-    $erro = $obUser->erro;
+    // Verifica se o token é válido
+    $user = $obsDatabase->selectOne('reset_token = :token', ['token' => $token]);
+
+    if ($user) {
+        if (isset($_POST['nova_senha'])) {
+            // Atualiza a nova senha
+            $nova_senha = password_hash($_POST['nova_senha'], PASSWORD_BCRYPT);
+            $update = $obsDatabase->update('id = ' . $user['id'], [
+                'senha' => $nova_senha,
+                'reset_token' => null // Remove o token após a redefinição de senha
+            ]);
+
+            $sucesso = "<div class='alert alert-success text-center' role='alert'>Senha alterada com sucesso! <a href='http://localhost/sistema-essential-final/'>Fazer Login</a></div>";
+        }
+    } else {
+        $erro = "<div class='alert alert-danger text-center' role='alert'>Token expirado ou inválido</div>";
+    }
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,17 +61,17 @@ if (isset($_POST['btn-continuar'])) {
                 </a>
             </div>
             <div class="container-small">
-                <?php echo $sucesso ?>
-                <?php echo $erro ?>
                 <form method="post" id="form-cadastro-usuario">
+                    <?php echo $erro ?>
+                    <?php echo $sucesso ?>
                     <div>
                         <div style="width: 180px;">
-                            <label class="input-label">Email</label>
-                            <input type="email" class="email-input" name="email" style="width: 340px;"
-                                placeholder="Digite seu email">
+                            <label class="input-label">Digite sua nova senha</label>
+                            <input type="password" name="nova_senha" id="nova_senha" style="width: 340px;"
+                                placeholder="Digite sua nova senha" required>
                         </div>
                     </div>
-                    <button type="submit" class="button-default" name="btn-continuar">Recuperar senha</button>
+                    <button type="submit" class="button-default">Redefinir Senha</button>
                 </form>
             </div>
         </div>
