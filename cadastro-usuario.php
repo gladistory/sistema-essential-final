@@ -17,7 +17,6 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], 
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -49,25 +48,30 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], 
             <div class="container-small">
                 <form method="post" id="form-cadastro-usuario">
                     <div class="bloco-inputs">
-                        <div>
+                        <div style="margin-bottom: 30px;">
                             <label class="input-label">Nome</label>
                             <input type="text" class="nome-input" name="nome">
+                            <div class="error-message" id="error-nome"></div>
                         </div>
                         <div>
                             <label class="input-label">E-mail</label>
                             <input type="text" class="email-input" name="email">
+                            <div class="error-message" id="error-email"></div>
                         </div>
-                        <div>
+                        <div style="margin-bottom: 10px;">
                             <label class="input-label">CPF</label>
                             <input type="text" class="cpf-input" name="cpf">
+                            <div class="error-message" id="error-cpf"></div>
                         </div>
                         <div>
                             <label class="input-label">Nascimento</label>
                             <input type="date" class="telefone-input" name="nascimento">
+                            <div class="error-message" id="error-nascimento"></div>
                         </div>
                         <div>
                             <label class="input-label">Senha</label>
                             <input type="password" class="senha-input" name="senha">
+                            <div class="error-message" id="error-senha"></div>
                         </div>
                     </div>
                     <button type="submit" class="button-default">Salvar novo usuário</button>
@@ -75,6 +79,8 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], 
             </div>
         </div>
     </section>
+
 </body>
+<script src="./assets/js/scripts.js"></script>
 
 </html>

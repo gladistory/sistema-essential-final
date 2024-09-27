@@ -31,6 +31,7 @@ if (isset($_POST['btn-continuar'])) {
     <link rel="stylesheet" href="https://use.typekit.net/tvf0cut.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="./assets/js/validar_login.js" defer></script>
 </head>
 
 <body>
@@ -59,11 +60,13 @@ if (isset($_POST['btn-continuar'])) {
                         <div>
                             <label class="input-label-login">E-mail</label>
                             <input type="text" class="email-input" id="data-login" name="email">
+                            <div class="error-message" id="error-email"></div>
                             <a class="login-text" href="cadastro-usuario.php">Ainda não sou cadastrado.</a>
                         </div>
                         <div>
                             <label class="input-label-password">Senha</label>
                             <input type="password" class="password-input" id="data-password" name="senha">
+                            <div class="error-message" id="error-senha"></div>
                             <a class="login-text" href="recuperar_senha.php">Recuperar senha.</a>
                         </div>
                     </div>
@@ -75,6 +78,7 @@ if (isset($_POST['btn-continuar'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+
 </body>
 
 </html>

@@ -14,7 +14,8 @@
                 <a href="clientes.php">Gerenciar clientes</a>
                 <a href="usuarios.php">Gerenciar Usuários</a>
                 <a href="produtos.php">Gerenciar produtos</a>
-                <a href="pedidos.php">Gerenciar pedidos</a>
+                <a href="estoque.php">Consulta de Estoque</a>
+                <a href="pedidos.php">Relatório de Vendas</a>
                 <a href="cadastro-cliente.php">Cadastrar cliente</a>
                 <a href="cadastro-usuario.php">Cadastrar usuário</a>
                 <a href="cadastro-produto.php">Cadastrar produto</a>

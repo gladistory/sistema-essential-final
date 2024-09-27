@@ -137,7 +137,6 @@ header .logo img {
   text-transform: uppercase;
   font-family: "proxima-nova-condensed", sans-serif;
   color: #141414;
-  margin-top: 40px;
 }
 
 .login-text {
@@ -202,10 +201,20 @@ form input,
   border: 1px solid #cccccc;
   height: 48px;
   padding: 0 16px;
-  margin: 10px 0 20px;
+  margin: 5px 0 10px;
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
+}
+
+/* Estilos para erros */
+.input-error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
 }
 
 .textarea {

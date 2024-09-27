@@ -23,11 +23,11 @@ $resultados = '';
 foreach ($produtos as $produto) {
 
     $resultados .= '<tr>
-                            <td> ' . $produto->id_produto . '</td>
+                            <td class="text-center"> ' . $produto->id_produto . '</td>
                             <td>' .
         '<img src=' . $produto->imagem . ' class="img-produto">' . '</td>
-                            <td>' . $produto->nome . '</td>
-                            <td>' . $produto->quantidade . '</td>
+                            <td class="text-center">' . $produto->nome . '</td>
+                            <td class="text-center">' . $produto->quantidade . '</td>
                             <td>' . $produto->descricao . '</td>
                             <td class="p-1">' . 'R$ ' . $produto->valor . '</td>
                              <td>
@@ -75,7 +75,7 @@ foreach ($produtos as $produto) {
                         <tr>
                             <th>ID</th>
                             <th>Imagem</th>
-                            <th>Nome</th>
+                            <th class="text-center">Nome</th>
                             <th>Quantidade</th>
                             <th>Descrição</th>
                             <th>Valor</th>

@@ -1,9 +1,5 @@
 <?php
 // Iniciar sessão
-
-use App\Entity\Clientes;
-use App\Entity\novoPedido;
-
 session_start();
 
 //Verificação
@@ -14,29 +10,46 @@ endif;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$obPedidos = new novoPedido();
+use App\Entity\itensPedido;
+use App\Entity\Produtos;
 
-$pedidos = $obPedidos->getPedidos();
+$obItens = new itensPedido();
 
-$_SESSION['num_pedidos'] = count($pedidos);
+$itens = $obItens->getItens();
 
-$resultados = '';
+$obProdutos = new Produtos();
 
-foreach ($pedidos as $pedido) {
-    $obCliente = new Clientes();
-    $resultados .= '<tr>
-                            <td>' . $pedido->id . '</td>
-                            <td>' . $pedido->cliente_id . ' - ' . $cliente = $obCliente->getCliente($pedido->cliente_id)->nome . '</td>
-                            <td>' .  date('d/m/Y', strtotime($pedido->data_pedido)) . '</td>
-                            <td>' . 'R$ ' . $pedido->valor_total . ',00' . '</td>
-                            <td>
-                                <a href="itens_pedido.php?id=' . $pedido->id . '">
-                                <button type="button" class="btn btn-primary">Detalhes</button>
-                             </td>
-                    </tr>';
-};
+$produtos = $obProdutos->getProdutos();
+
+
+$quantidades = []; // Array para acumular as quantidades
+
+$resultado = '';
+
+foreach ($produtos as $produto) {
+    $quantidadeTotal = 0;
+
+    foreach ($itens as $item) {
+        if ($produto->id_produto == $item->produto_id) {
+            $quantidadeTotal += $item->quantidade;
+        }
+    }
+    $quantidades[$produto->id_produto] = $quantidadeTotal;
+}
+$obProduto = new Produtos();
+
+
+foreach ($quantidades as $id_produto => $quantidade) {
+    $resultado .= '<tr>
+    <td>' . '<img src=' . $obProduto->getProduto($id_produto)->imagem . ' class="img-produto">'  . '</td>
+    <td>' .   $obProduto->getProduto($id_produto)->nome . '</td>
+    <td class="text-center"> ' .   $quantidade . '</td>
+    <td class="text-center">' . $obProduto->getProduto($id_produto)->quantidade  - $quantidade . '</td>
+</tr>';
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,7 +59,6 @@ foreach ($pedidos as $pedido) {
     <title>Gerenciamento de pedidos</title>
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
-    <link rel="stylesheet" href="./assets/css/gerenciamento_produto.css">
     <link rel="stylesheet" href="https://use.typekit.net/tvf0cut.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -57,25 +69,23 @@ foreach ($pedidos as $pedido) {
     <section class="page-gerenciamento-produto paddingBottom50">
         <div class="container">
             <div class="d-flex justify-content-between">
-                <a href="dashboard.php" class="link-voltar">
+                <a href="pedidos.php" class="link-voltar">
                     <img src="assets/images/arrow.svg" alt="">
-                    <span>Relatório de Vendas</span>
+                    <span>Consulta de Estoque</span>
                 </a>
-                <a href="novo-pedido.php" class="bt-add">Adicionar novo pedido</a>
             </div>
-            <div class="shadow-table">
+            <div class="table-shadow">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID pedido</th>
-                            <th>ID - Cliente</th>
-                            <th>Data do pedido</th>
-                            <th>Valor</th>
-                            <th>Itens pedido</th>
+                            <th>ID Produto</th>
+                            <th>Produto</th>
+                            <th class="text-center">Quantidade Vendida</th>
+                            <th class="text-center">Quantidade Atual</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php echo $resultados ?>
+                        <?php echo $resultado ?>
                     </tbody>
                 </table>
             </div>
