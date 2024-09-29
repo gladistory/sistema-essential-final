@@ -28,7 +28,7 @@ foreach ($users as $user) {
                             <td>' . $user->nome . '</td>
                             <td>' . $user->cpf . '</td>
                             <td>' . $user->email . '</td>
-                            <td>' . $user->nascimento . '</td>
+                            <td>' . date('d/m/Y', strtotime($user->nascimento)) . '</td>
                              <td>
                             <a href="editar_user.php?id=' . $user->id . '">
                             <button type="button" class="btn btn-primary">Editar</button>

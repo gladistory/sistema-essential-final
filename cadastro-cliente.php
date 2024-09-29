@@ -53,19 +53,24 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'])) {
                         <div>
                             <label class="input-label">Nome</label>
                             <input type="text" class="nome-input" name="nome">
+                            <div style="margin-bottom: 30px;" class="error-message" id="error-nome"></div>
                         </div>
                         <div>
                             <label class="input-label">E-mail</label>
                             <input type="text" class="email-input" name="email">
+                            <div class="error-message" id="error-email"></div>
                         </div>
                         <div>
                             <label class="input-label">CPF</label>
                             <input type="text" class="cpf-input" name="cpf">
+                            <div class="error-message" id="error-cpf"></div>
                         </div>
                         <div>
                             <label class="input-label">Telefone</label>
                             <input type="tel" class="telefone-input" name="telefone">
+                            <div class="error-message" id="error-telefone"></div>
                         </div>
+
                     </div>
                     <button type="submit" class="button-default">Salvar novo cliente</button>
                 </form>
@@ -73,5 +78,6 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['telefone'])) {
         </div>
     </section>
 </body>
+<script src="./assets/js/valida_cliente.js"></script>
 
 </html>

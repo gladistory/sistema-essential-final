@@ -4,7 +4,7 @@
             <img src="assets/images/ho.svg" alt="" />
         </a>
         <div class="blc-user">
-            <img src="assets/images/icon-feather-user.svg" alt="" />
+            <img style="width: 45px;" src='<?php echo $_SESSION['foto_perfil'] ?>' />
             <span>
                 Olá, <br />
                 <?php echo $_SESSION['name'] ?>
@@ -20,7 +20,7 @@
                 <a href="cadastro-usuario.php">Cadastrar usuário</a>
                 <a href="cadastro-produto.php">Cadastrar produto</a>
                 <a href="novo-pedido.php">Novo pedido</a>
-                <a href="alterar-senha.php">Alterar Senha</a>
+                <a href="perfil_user.php">Perfil do Usuário</a>
                 <a href="logout.php">Sair da conta</a>
             </div>
         </div>

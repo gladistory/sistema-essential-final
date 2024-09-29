@@ -46,11 +46,11 @@ if (isset($_POST['btn-continuar'])) {
         <div class="container-login">
             <div>
                 <p class="login-title">
-                    Login
+                    Essentia Farm Tec.
                 </p>
                 <p class="login-text">
-                    Caso seja admin, entre com o seu login de cliente da <a href="https://essentia.com.br/"
-                        target="_blank">Essentia Pharma.</a>
+                    Caso seja admin, entre com o seu login de usuário da <a href="https://essentia.com.br/"
+                        target="_blank">Essentia Pharma Tec.</a>
                 </p>
             </div>
             <div class="login container-small">

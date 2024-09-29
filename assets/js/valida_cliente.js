@@ -1,7 +1,7 @@
-document.getElementById('form-cadastro-usuario').addEventListener('submit', function(event) {
+document.getElementById('form-cadastro-cliente').addEventListener('submit', function(event) {
     event.preventDefault();
 
-
+    // Limpa as mensagens de erro e classes de erro
     document.querySelectorAll('.error-message').forEach(function(element) {
         element.textContent = '';
     });
@@ -14,8 +14,8 @@ document.getElementById('form-cadastro-usuario').addEventListener('submit', func
     var nome = document.querySelector('.nome-input').value;
     var email = document.querySelector('.email-input').value;
     var cpf = document.querySelector('.cpf-input').value;
-    var nascimento = document.querySelector('.date-input').value;
-    var senha = document.querySelector('.senha-input').value;
+    var telefone = document.querySelector('.telefone-input').value;
+    // var senha = document.querySelector('.senha-input').value; // Caso você tenha um campo de senha
 
     // Validação do nome
     if (nome === '') {
@@ -40,33 +40,15 @@ document.getElementById('form-cadastro-usuario').addEventListener('submit', func
         hasError = true;
     }
 
-    // Validação da data de nascimento
-    var dataNascimento = new Date(nascimento);
-    var dataAtual = new Date();
-    var idade = dataAtual.getFullYear() - dataNascimento.getFullYear();
-    var mes = dataAtual.getMonth() - dataNascimento.getMonth();
-    if (mes < 0 || (mes === 0 && dataAtual.getDate() < dataNascimento.getDate())) {
-        idade--;
-    }
-
-    if (isNaN(dataNascimento.getTime()) || idade < 18) {
-        document.querySelector('.date-input').classList.add('input-error');
-        document.getElementById('error-nascimento').textContent =
-            'Data inválida ou idade inferior a 18 anos.';
+    // Validação do telefone
+    var telefoneRegex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
+    if (!telefoneRegex.test(telefone)) {
+        document.querySelector('.telefone-input').classList.add('input-error');
+        document.getElementById('error-telefone').textContent = 'Por favor, insira um telefone válido. Exemplo: (11) 91234-5678';
         hasError = true;
     }
 
-    // Validação da senha (mínimo 6 caracteres)
-    if (senha === '' || senha.length < 6) {
-        document.querySelector('.senha-input').classList.add('input-error');
-        document.getElementById('error-senha').textContent = 'A senha deve ter pelo menos 6 caracteres.';
-        hasError = true;
-    }
-
-    // Se não houver erros, o formulário é enviado
     if (!hasError) {
         this.submit();
     }
 });
-
-

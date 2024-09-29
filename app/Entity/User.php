@@ -20,6 +20,7 @@ class User
     public $senha;
     public $erro;
     public $sucesso;
+    public $imagem;
 
     public function Cadastrar()
     {
@@ -63,6 +64,14 @@ class User
             $_SESSION['logado'] = true;
             $_SESSION['id_user'] = $user['id'];
             $_SESSION['name'] = $user['nome'];
+            $sem_foto = "./assets/images/icon-feather-user.svg";
+
+            $foto_perfil = $user["imagem"];
+            if ($foto_perfil == NULL) {
+                $foto_perfil = $sem_foto;
+                $_SESSION['foto_perfil'] = $foto_perfil;
+            }
+            $_SESSION['foto_perfil'] = $foto_perfil;
             header('Location: dashboard.php');
             exit;
         } else {
@@ -132,5 +141,18 @@ class User
         } else {
             $this->erro = "<div class='alert alert-danger text-center' role='alert'>Email não encontrado</div>";
         }
+    }
+
+    public function FotoPerfil()
+    {
+        return (new Database('usuarios'))->update('id = ' . $this->id, [
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'cpf' => $this->cpf,
+            'nascimento' => $this->nascimento,
+            'senha' => $this->senha,
+            'imagem' => $this->imagem
+
+        ]);
     }
 }

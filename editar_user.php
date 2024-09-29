@@ -60,7 +60,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento']))
             <div>
                 <a href="dashboard.php" class="link-voltar">
                     <img src="assets/images/arrow.svg" alt="">
-                    <span>Cadastro de usuário</span>
+                    <span>Editar informações do usuário</span>
                 </a>
             </div>
             <div class="container-small">
@@ -86,7 +86,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento']))
                     </div>
                     <button type="submit" class="button-default">Salvar Alterações</button>
                     <a class="button-default"
-                        style="margin-left: 44px; background-color:red; text-decoration: none;color:white; padding: 12px;"
+                        style="margin-left: 44px; background-color:crimson; text-decoration: none;color:white; padding: 12px;"
                         href="alterar-senha.php">Alterar Senha</a>
                 </form>
             </div>

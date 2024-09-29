@@ -65,7 +65,7 @@ if (isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['nascimento'], 
                         </div>
                         <div>
                             <label class="input-label">Nascimento</label>
-                            <input type="date" class="telefone-input" name="nascimento">
+                            <input type="date" class="date-input" name="nascimento">
                             <div class="error-message" id="error-nascimento"></div>
                         </div>
                         <div>
