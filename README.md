@@ -1,5 +1,5 @@
 # Projeto Final do programa de capacitação em tecnologia
-Desafio Final: Desenvolver um simples sistema de vendas farmacêutico, implementando as operações básicas e aplicando as
+Desafio Final: Desenvolver um sistema de vendas farmacêutico, implementando as operações básicas e aplicando as
 técnicas vistas até aqui no curso. Nosso sistema ganhará funcionalidades, operações e
 rastreabilidade, assim conseguiremos atingir um Produto Minimamente Viável (MVP).
 
